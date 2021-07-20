@@ -20,6 +20,11 @@ export default function Create(props) {
   }
   const submit = () => {
     context.add({ designation, company, from, to, city })
+    setDesignation("")
+    setCompany("")
+    setFrom("")
+    setTo("")
+    setCity("")
     props.close()
   }
   return (
