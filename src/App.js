@@ -55,6 +55,7 @@ function App() {
     const temp = [...emp]
     temp.splice(index, 1)
     setEmp(temp)
+    setCurIndex(0)
   }
   const data = { emp, update, add }
 
