@@ -59,7 +59,7 @@ export default function ExpTable(props) {
           </TableHead>
           <TableBody>
             {props.empDetails.map((row, i) => (
-              <StyledTableRow key={i}>
+              <StyledTableRow key={i} style={{ textTransform: "capitalize" }}>
                 <StyledTableCell align="center" style={{ fontWeight: "bold" }}>
                   {row.designation}
                 </StyledTableCell>
