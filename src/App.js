@@ -64,7 +64,7 @@ function App() {
       <EmpModal
         show={show}
         close={close}
-        emp={modal === "new" ? empty : emp[curIndex]}
+        emp={modal === "new" ? empty : emp.length > 0 ? emp[curIndex] : empty}
         type={modal}
         update={update}
         add={add}

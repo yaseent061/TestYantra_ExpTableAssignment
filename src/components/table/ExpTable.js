@@ -38,6 +38,30 @@ const useStyles = makeStyles({
 export default function ExpTable(props) {
   const classes = useStyles()
 
+  const data = props.empDetails.map((row, i) => (
+    <StyledTableRow key={i} style={{ textTransform: "capitalize" }}>
+      <StyledTableCell align="center" style={{ fontWeight: "bold" }}>
+        {row.designation}
+      </StyledTableCell>
+      <StyledTableCell align="center">{row.company}</StyledTableCell>
+      <StyledTableCell align="center">{row.from}</StyledTableCell>
+      <StyledTableCell align="center">{row.to}</StyledTableCell>
+      <StyledTableCell align="center">{row.city}</StyledTableCell>
+      <StyledTableCell align="center">
+        <BorderColor
+          className="hover"
+          color="primary"
+          style={{ marginRight: "8px" }}
+          onClick={() => props.open("edit", i)}
+        />
+        <Delete
+          color="secondary"
+          className="hover"
+          onClick={() => props.remove(i)}
+        />
+      </StyledTableCell>
+    </StyledTableRow>
+  ))
   return (
     <Container>
       <TableContainer component={Paper}>
@@ -58,30 +82,15 @@ export default function ExpTable(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.empDetails.map((row, i) => (
-              <StyledTableRow key={i} style={{ textTransform: "capitalize" }}>
+            {props.empDetails === null ? (
+              <StyledTableRow style={{ textTransform: "capitalize" }}>
                 <StyledTableCell align="center" style={{ fontWeight: "bold" }}>
-                  {row.designation}
-                </StyledTableCell>
-                <StyledTableCell align="center">{row.company}</StyledTableCell>
-                <StyledTableCell align="center">{row.from}</StyledTableCell>
-                <StyledTableCell align="center">{row.to}</StyledTableCell>
-                <StyledTableCell align="center">{row.city}</StyledTableCell>
-                <StyledTableCell align="center">
-                  <BorderColor
-                    className="hover"
-                    color="primary"
-                    style={{ marginRight: "8px" }}
-                    onClick={() => props.open("edit", i)}
-                  />
-                  <Delete
-                    color="secondary"
-                    className="hover"
-                    onClick={() => props.remove(i)}
-                  />
+                  Enter Data
                 </StyledTableCell>
               </StyledTableRow>
-            ))}
+            ) : (
+              data
+            )}
           </TableBody>
         </Table>
       </TableContainer>

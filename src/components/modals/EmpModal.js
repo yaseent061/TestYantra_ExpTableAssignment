@@ -45,7 +45,7 @@ export default function EmpModal(props) {
       setTo("")
       setCity("")
     }
-  }, [props.emp])
+  }, [props])
   return (
     <div>
       <Modal
