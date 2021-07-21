@@ -1,9 +1,7 @@
 import ExpTable from "./components/table/ExpTable"
 import "./App.css"
 import { useState } from "react"
-import { empContext } from "./components/context/empContext"
-import Update from "./components/modals/Update"
-import Create from "./components/modals/Create"
+import EmpModal from "./components/modals/EmpModal"
 
 function App() {
   const [emp, setEmp] = useState([
@@ -57,20 +55,21 @@ function App() {
     setEmp(temp)
     setCurIndex(0)
   }
-  const data = { emp, update, add }
-
+  const empty = {}
   return (
-    <empContext.Provider value={data}>
-      <div className="App">
-        <h1>Experience</h1>
-        <ExpTable empDetails={emp} open={open} remove={remove} />
-        {modal === "new" ? (
-          <Create show={show} close={close} />
-        ) : (
-          <Update show={show} close={close} emp={emp[curIndex]} />
-        )}
-      </div>
-    </empContext.Provider>
+    <div className="App">
+      <h1>Experience</h1>
+      <ExpTable empDetails={emp} open={open} remove={remove} />
+
+      <EmpModal
+        show={show}
+        close={close}
+        emp={modal === "new" ? empty : emp[curIndex]}
+        type={modal}
+        update={update}
+        add={add}
+      />
+    </div>
   )
 }
 

@@ -1,10 +1,8 @@
 import { Button, Container, Grid, Modal, TextField } from "@material-ui/core"
-import React, { useContext, useEffect, useState } from "react"
-import { empContext } from "../context/empContext"
-import "./form.css"
+import { useEffect, useState } from "react"
+import "./EmpModal.css"
 
-export default function Update(props) {
-  const context = useContext(empContext)
+export default function EmpModal(props) {
   const [designation, setDesignation] = useState("")
   const [company, setCompany] = useState("")
   const [from, setFrom] = useState("")
@@ -20,16 +18,34 @@ export default function Update(props) {
   }
 
   const submit = () => {
-    context.update({ designation, company, from, to, city })
-    props.close()
+    if (props.type === "new") {
+      props.add({ designation, company, from, to, city })
+      setDesignation("")
+      setCompany("")
+      setFrom("")
+      setTo("")
+      setCity("")
+      props.close()
+    } else {
+      props.update({ designation, company, from, to, city })
+      props.close()
+    }
   }
   useEffect(() => {
-    setDesignation(props.emp.designation)
-    setCompany(props.emp.company)
-    setFrom(props.emp.from)
-    setTo(props.emp.to)
-    setCity(props.emp.city)
-  }, [props])
+    if (Object.keys(props.emp).length > 0) {
+      setDesignation(props.emp.designation)
+      setCompany(props.emp.company)
+      setFrom(props.emp.from)
+      setTo(props.emp.to)
+      setCity(props.emp.city)
+    } else {
+      setDesignation("")
+      setCompany("")
+      setFrom("")
+      setTo("")
+      setCity("")
+    }
+  }, [props.emp])
   return (
     <div>
       <Modal
@@ -42,7 +58,9 @@ export default function Update(props) {
           <Container>
             <Grid container spacing={2}>
               <Grid item xs={12} align="center">
-                <h1 style={{ color: "royalblue" }}>Update</h1>
+                <h1 style={{ color: "royalblue" }}>
+                  {props.type === "new" ? "Experience" : "Update"}
+                </h1>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -96,7 +114,7 @@ export default function Update(props) {
                   align="right"
                   onClick={submit}
                 >
-                  Update
+                  {props.type === "new" ? "Add" : "Update"}
                 </Button>
               </Grid>
             </Grid>
