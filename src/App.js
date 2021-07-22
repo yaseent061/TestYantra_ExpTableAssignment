@@ -62,7 +62,8 @@ function App() {
       return el1.id - el2.id
     })
     //adding id to new object
-    let id = sortedById[sortedById.length - 1].id + 1
+    let id =
+      sortedById.length > 0 ? sortedById[sortedById.length - 1].id + 1 : 0
     const temp = [...emp, { id, ...data }]
     setEmp(temp)
   }
@@ -113,7 +114,11 @@ function App() {
           id="filled-basic"
           label="Search"
           variant="filled"
-          style={{ marginLeft: "auto", borderRadius: "10px" }}
+          style={{
+            marginLeft: "auto",
+            borderRadius: "10px",
+            marginBottom: "5px",
+          }}
           onChange={search}
         />
         <ExpTable empDetails={list} open={open} remove={remove} />
