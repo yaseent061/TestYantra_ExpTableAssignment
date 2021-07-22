@@ -27,10 +27,12 @@ export default function EmpModal(props) {
       setCity("")
       props.close()
     } else {
-      props.update({ designation, company, from, to, city })
+      let id = props.emp.id
+      props.update({ id, designation, company, from, to, city })
       props.close()
     }
   }
+  // console.log("Modal ==>", props.emp)
   useEffect(() => {
     if (Object.keys(props.emp).length > 0) {
       setDesignation(props.emp.designation)

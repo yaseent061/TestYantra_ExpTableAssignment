@@ -7,7 +7,6 @@ import TableContainer from "@material-ui/core/TableContainer"
 import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
-import { Container } from "@material-ui/core"
 import { AddCircle, BorderColor, Delete } from "@material-ui/icons"
 import "./ExpTable.css"
 
@@ -39,7 +38,7 @@ export default function ExpTable(props) {
   const classes = useStyles()
 
   const data = props.empDetails.map((row, i) => (
-    <StyledTableRow key={i} style={{ textTransform: "capitalize" }}>
+    <StyledTableRow key={row.id} style={{ textTransform: "capitalize" }}>
       <StyledTableCell align="center" style={{ fontWeight: "bold" }}>
         {row.designation}
       </StyledTableCell>
@@ -52,7 +51,9 @@ export default function ExpTable(props) {
           className="hover"
           color="primary"
           style={{ marginRight: "8px" }}
-          onClick={() => props.open("edit", i)}
+          onClick={() => {
+            props.open("edit", i)
+          }}
         />
         <Delete
           color="secondary"
@@ -63,7 +64,7 @@ export default function ExpTable(props) {
     </StyledTableRow>
   ))
   return (
-    <Container>
+    <>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
@@ -94,6 +95,6 @@ export default function ExpTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
+    </>
   )
 }
