@@ -155,6 +155,7 @@ function App() {
     let sortedList = sort(temp)
 
     setList(sortedList)
+    document.getElementById("filled-basic").value = ""
   }, [emp])
 
   //Pagination
