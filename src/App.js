@@ -3,6 +3,7 @@ import "./App.css"
 import { useEffect, useState } from "react"
 import EmpModal from "./components/modals/EmpModal"
 import { Container, TextField } from "@material-ui/core"
+import { Pagination } from "./components/table/Pagination"
 
 let sort = (list) => {
   let sortedList = list.sort(function (a, b) {
@@ -33,6 +34,55 @@ function App() {
     },
     {
       id: 2,
+      designation: "Software Architect",
+      company: "TY",
+      from: "Feb 2021",
+      to: "Sep 2021",
+      city: "Delhi",
+    },
+    {
+      id: 3,
+      designation: "Software Architect",
+      company: "TY",
+      from: "May 2021",
+      to: "May 2021",
+      city: "Bengaluru",
+    },
+    {
+      id: 4,
+      designation: "Software Dev",
+      company: "TY",
+      from: "Jan 2021",
+      to: "Jun 2021",
+      city: "Mumbai",
+    },
+    {
+      id: 5,
+      designation: "Software Architect",
+      company: "TY",
+      from: "Feb 2021",
+      to: "Sep 2021",
+      city: "Delhi",
+    },
+
+    {
+      id: 6,
+      designation: "Software Architect",
+      company: "TY",
+      from: "May 2021",
+      to: "May 2021",
+      city: "Bengaluru",
+    },
+    {
+      id: 7,
+      designation: "Software Dev",
+      company: "TY",
+      from: "Jan 2021",
+      to: "Jun 2021",
+      city: "Mumbai",
+    },
+    {
+      id: 8,
       designation: "Software Architect",
       company: "TY",
       from: "Feb 2021",
@@ -87,7 +137,7 @@ function App() {
 
   const empty = {}
 
-  //function to search and employee by designation
+  //function to search employee by designation
   function search(e) {
     const temp = emp.filter((emp) => {
       let desig = emp.designation.toUpperCase()
@@ -96,6 +146,7 @@ function App() {
     let sortedList = sort(temp)
 
     setList(sortedList)
+    setCurrPage(1)
   }
 
   //setting list everytime emp state is modified
@@ -105,6 +156,18 @@ function App() {
 
     setList(sortedList)
   }, [emp])
+
+  //Pagination
+  const [currPage, setCurrPage] = useState(1)
+  const [rowsPerPage] = useState(5)
+  const indexOfLastRow = currPage * rowsPerPage
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage
+  const currRows = list.slice(indexOfFirstRow, indexOfLastRow)
+  console.log(currRows)
+
+  const paginate = (pageNum) => {
+    setCurrPage(pageNum)
+  }
 
   return (
     <Container>
@@ -121,7 +184,7 @@ function App() {
           }}
           onChange={search}
         />
-        <ExpTable empDetails={list} open={open} remove={remove} />
+        <ExpTable empDetails={currRows} open={open} remove={remove} />
 
         {show === true ? (
           <EmpModal
@@ -135,6 +198,11 @@ function App() {
             add={add}
           />
         ) : null}
+        <Pagination
+          rowsPerPage={rowsPerPage}
+          totalRows={list.length}
+          paginate={paginate}
+        />
       </div>
     </Container>
   )

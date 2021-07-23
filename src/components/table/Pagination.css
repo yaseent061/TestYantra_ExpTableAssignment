@@ -1,0 +1,20 @@
+.pagination {
+  display: flex;
+}
+
+.page-item {
+  list-style-type: none;
+  margin: 50% 2%;
+}
+
+.page-link {
+  text-decoration: none;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+}
+
+.page-link:hover {
+  background-color: rgb(218, 208, 208);
+}
